@@ -8,6 +8,13 @@
 
 # For the 1.2 branch, we use 0s here
 # For 1.3+, we use the three digit versions
+
+
+%define libname %mklibname v8
+%define develname %mklibname v8 -d
+
+
+
 %global somajor 3
 %global sominor 8
 %global sobuild 9.8
@@ -36,19 +43,32 @@ as specified in ECMA-262, 3rd edition.
 %files
 %doc AUTHORS ChangeLog LICENSE
 %{_bindir}/d8
+
+
+%package -n %libname
+Group:      System/Libraries
+Summary:    Development headers and libraries for v8
+Requires:   %{name} = %{version}-%{release}
+
+%description -n %libname
+Library for V8 Google's open source JavaScript engine.
+
+
+%files -n %libname
 %{_libdir}/*.so.*
 
 #--------------------------------------------------------------------
 
-%package devel
+%package -n %develname
 Group:      System/Libraries 
 Summary:    Development headers and libraries for v8
 Requires:   %{name} = %{version}-%{release}
+Provides:   v8-devel = %{version}-%{release}
 
-%description devel
+%description -n %develname
 Development headers and libraries for v8.
 
-%files devel
+%files -n %develname
 %{_includedir}/*.h
 #%dir %{_includedir}/v8
 %{_includedir}/v8/extensions/
