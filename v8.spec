@@ -10,7 +10,7 @@
 # For 1.3+, we use the three digit versions
 %global somajor 3
 %global sominor 8
-%global sobuild 9.6
+%global sobuild 9.8
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
