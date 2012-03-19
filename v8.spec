@@ -17,7 +17,7 @@
 
 %global somajor 3
 %global sominor 8
-%global sobuild 9.8
+%global sobuild 9.15
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
@@ -29,7 +29,7 @@ Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
 URL:        http://code.google.com/p/v8
-Source0:    v8-%{version}.tar.bz2
+Source0:    http://commondatastorage.googleapis.com/chromium-browser-official/%{name}-%{somajor}.%{sominor}.%{sobuild}.tar.bz2
 ExclusiveArch:    %{ix86} x86_64 arm
 BuildRequires:    scons
 BuildRequires:    readline-devel
