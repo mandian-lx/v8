@@ -17,14 +17,14 @@
 
 %global somajor 3
 %global sominor 8
-%global sobuild 9.15
+%global sobuild 9.16
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    2
+Release:    1
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
@@ -70,7 +70,6 @@ Development headers and libraries for v8.
 
 %files -n %develname
 %{_includedir}/*.h
-#%dir %{_includedir}/v8
 %{_includedir}/v8/extensions/
 %{_libdir}/*.so
 %{python_sitelib}/j*.py*
@@ -93,7 +92,7 @@ find . \( -name \*.cc -o -name \*.h -o -name \*.py \) -a -executable \
 
 
 %build
-export GCC_VERSION="44"
+#export GCC_VERSION="44"
 scons library=shared snapshots=on \
 %ifarch x86_64
 arch=x64 \
@@ -158,10 +157,8 @@ chmod -x %{buildroot}%{_includedir}/v8*.h
 
 mkdir -p %{buildroot}%{_includedir}/v8/extensions/experimental/
 install -p src/extensions/*.h %{buildroot}%{_includedir}/v8/extensions/
-#install -p src/extensions/experimental/*.h %{buildroot}%{_includedir}/v8/extensions/experimental/
 
 chmod -x %{buildroot}%{_includedir}/v8/extensions/*.h
-#chmod -x %{buildroot}%{_includedir}/v8/extensions/experimental/*.h
 
 # install Python JS minifier scripts for nodejs
 install -d %{buildroot}%{python_sitelib}
