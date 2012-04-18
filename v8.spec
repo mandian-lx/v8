@@ -24,7 +24,7 @@
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    2
+Release:    3
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
@@ -48,11 +48,9 @@ as specified in ECMA-262, 3rd edition.
 %package -n %libname
 Group:      System/Libraries
 Summary:    Development headers and libraries for v8
-Requires:   %{name} = %{version}-%{release}
 
 %description -n %libname
 Library for V8 Google's open source JavaScript engine.
-
 
 %files -n %libname
 %{_libdir}/*.so.*
@@ -62,7 +60,7 @@ Library for V8 Google's open source JavaScript engine.
 %package -n %develname
 Group:      System/Libraries 
 Summary:    Development headers and libraries for v8
-Requires:   %{name} = %{version}-%{release}
+Requires:   %{libname} = %{version}-%{release}
 Provides:   v8-devel = %{version}-%{release}
 
 %description -n %develname
