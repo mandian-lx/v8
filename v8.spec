@@ -33,7 +33,7 @@ define archrel ia32.release
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    1
+Release:    2
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
@@ -124,9 +124,9 @@ install -p src/extensions/*.h %{buildroot}%{_includedir}/v8/extensions/
 chmod -x %{buildroot}%{_includedir}/v8/extensions/*.h
 
 pushd %{buildroot}%{_libdir}
-ln -sf libv8.so.%{soname_ver} libv8.so
-ln -sf libv8.so.%{soname_ver} libv8.so.%{somajor}
-ln -sf libv8.so.%{soname_ver} libv8.so.%{somajor}.%{sominor}
+ln -sf libv8.so.%{sover} libv8.so
+ln -sf libv8.so.%{sover} libv8.so.%{somajor}
+ln -sf libv8.so.%{sover} libv8.so.%{somajor}.%{sominor}
 popd
 
 
