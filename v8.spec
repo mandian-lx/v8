@@ -33,7 +33,7 @@
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    2
+Release:    3
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
