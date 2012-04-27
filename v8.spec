@@ -73,6 +73,7 @@ Library for V8 Google's open source JavaScript engine.
 %package -n %develname
 Group:      System/Libraries 
 Summary:    Development headers and libraries for v8
+Requires:   %{libname} = %{version}-%{release}
 Requires:   %{name} = %{version}-%{release}
 Provides:   %{name}-devel = %{version}-%{release}
 
