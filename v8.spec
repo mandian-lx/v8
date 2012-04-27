@@ -115,7 +115,7 @@ mkdir -p %{buildroot}%{_libdir}
 install -p include/*.h %{buildroot}%{_includedir}
 install -p out/%{archrel}/lib.target//libv8.so.%{sover} %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_bindir}
-install -p -m0755 out/x64.release/d8 %{buildroot}%{_bindir}
+install -p -m0755 out/%{archrel}/d8 %{buildroot}%{_bindir}
 
 chmod -x %{buildroot}%{_includedir}/v8*.h
 
