@@ -17,9 +17,10 @@
 
 %ifarch x86_64
 %define archrel x64.release
+%endif
+
 %ifarch %ix86
 %define archrel ia32.release
-%endif
 %endif
 
 %define soname_ver 3.9.24
