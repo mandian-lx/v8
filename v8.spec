@@ -18,7 +18,7 @@
 %ifarch x86_64
 %define archrel x64.release
 %ifarch %{ix86}
-define archrel ia32.release
+%define archrel ia32.release
 %endif
 %endif
 
