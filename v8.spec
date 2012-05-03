@@ -27,14 +27,14 @@
 
 %global somajor 3
 %global sominor 9
-%global sobuild 24.16
+%global sobuild 24.17
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    7
+Release:    1
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
