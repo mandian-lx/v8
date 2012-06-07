@@ -23,11 +23,11 @@
 %define archrel ia32.release
 %endif
 
-%define soname_ver 3.9.24
+%define soname_ver 3.10.8
 
 %global somajor 3
-%global sominor 9
-%global sobuild 24.21
+%global sominor 10
+%global sobuild 8.13
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
