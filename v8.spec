@@ -34,7 +34,7 @@
 
 Name:	    v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    1
+Release:    2
 Summary:    JavaScript Engine
 Group:      System/Libraries
 License:    BSD
@@ -44,7 +44,7 @@ ExclusiveArch:    %{ix86} x86_64 arm
 BuildRequires:    scons
 BuildRequires:    readline-devel
 BuildRequires:    icu-devel >= 49
-Obsoletes:	  v8 <= %{version}-%{release}
+Obsoletes:		  v8 <= %{version}-%{release}
 
 %description
 V8 is Google's open source JavaScript engine. V8 is written in C++ and is used 
@@ -76,6 +76,7 @@ Summary:    Development headers and libraries for v8
 Requires:   %{libname} = %{version}-%{release}
 Requires:   %{name} = %{version}-%{release}
 Provides:   %{name}-devel = %{version}-%{release}
+Obsoletes:	%{name}-devel < %{version}-%{release}
 
 %description -n %develname
 Development headers and libraries for v8.
