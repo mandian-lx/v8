@@ -27,7 +27,7 @@
 
 %global somajor 3
 %global sominor 10
-%global sobuild 8.16
+%global sobuild 8.18
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
