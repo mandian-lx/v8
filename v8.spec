@@ -23,11 +23,16 @@
 %define archrel ia32.release
 %endif
 
-%define soname_ver 3.11.10
+%ifarch %arm
+%define archrel armeabi=hard vfp3=on
+%endif
+
+
+%define soname_ver 3.12.11
 
 %global somajor 3
-%global sominor 11
-%global sobuild 10.14
+%global sominor 12
+%global sobuild 11
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
@@ -109,7 +114,6 @@ make -j3 GYP_GENERATORS=make  V=1 werror=no \
 	soname_version=%{sover} \
 	visibility=default \
 	%{archrel}	
-
 
 %install
 mkdir -p %{buildroot}%{_includedir}
