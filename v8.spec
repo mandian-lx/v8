@@ -24,15 +24,15 @@
 %endif
 
 %ifarch %arm
-%define archrel armeabi=hard vfp3=on
+%define archrel armeabi=hard vfp3=on hardfp=on
 %endif
 
 
-%define soname_ver 3.12.11
+%define soname_ver 3.13.6
 
 %global somajor 3
-%global sominor 12
-%global sobuild 11
+%global sominor 13
+%global sobuild 6
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
@@ -49,7 +49,7 @@ ExclusiveArch:    %{ix86} x86_64 arm
 BuildRequires:    scons
 BuildRequires:    readline-devel
 BuildRequires:    icu-devel >= 49
-Obsoletes:		  v8 < %{version}-%{release}
+Obsoletes:		v8 < %{version}-%{release}
 
 %description
 V8 is Google's open source JavaScript engine. V8 is written in C++ and is used 
@@ -127,7 +127,6 @@ chmod -x %{buildroot}%{_includedir}/v8*.h
 
 mkdir -p %{buildroot}%{_includedir}/v8/extensions/experimental/
 install -p src/extensions/*.h %{buildroot}%{_includedir}/v8/extensions/
-
 chmod -x %{buildroot}%{_includedir}/v8/extensions/*.h
 
 pushd %{buildroot}%{_libdir}
@@ -135,10 +134,6 @@ ln -sf libv8.so.%{sover} libv8.so
 ln -sf libv8.so.%{sover} libv8.so.%{somajor}
 ln -sf libv8.so.%{sover} libv8.so.%{somajor}.%{sominor}
 popd
-
-
-
-
 
 
 # install Python JS minifier scripts for nodejs
