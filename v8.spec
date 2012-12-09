@@ -31,8 +31,8 @@
 %define soname_ver 3.13.6
 
 %global somajor 3
-%global sominor 13
-%global sobuild 7.2
+%global sominor 14
+%global sobuild 5
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
