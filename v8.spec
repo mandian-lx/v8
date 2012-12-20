@@ -24,15 +24,15 @@
 %endif
 
 %ifarch %arm
-%define archrel armeabi=hard vfp3=on hardfp=on
+%define archrel myarch=arm vfp3=on hardfp=off
 %endif
 
 
-%define soname_ver 3.13.6
+%define soname_ver 3.14.5.3
 
 %global somajor 3
 %global sominor 14
-%global sobuild 5
+%global sobuild 5.3
 %global sover %{somajor}.%{sominor}.%{sobuild}
 %{!?python_sitelib: %global python_sitelib %(%{__python} \
     -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
