@@ -28,14 +28,12 @@
 %endif
 
 
-%define soname_ver 3.15.11.13
+%define soname_ver 3.17.5
 
-%global somajor 3
-%global sominor 15
-%global sobuild 11.13
-%global sover %{somajor}.%{sominor}.%{sobuild}
-%{!?python_sitelib: %global python_sitelib %(%{__python} \
-    -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%define somajor 3
+%define sominor 17
+%define sobuild 5
+%define sover %{somajor}.%{sominor}.%{sobuild}
 
 Name:       v8
 Version:    %{somajor}.%{sominor}.%{sobuild}
@@ -45,6 +43,7 @@ Group:      System/Libraries
 License:    BSD
 URL:        http://code.google.com/p/v8
 Source0:    http://commondatastorage.googleapis.com/chromium-browser-official/%{name}-%{somajor}.%{sominor}.%{sobuild}.tar.bz2
+Patch0:     add-debuginfo-with-sources.patch
 ExclusiveArch:    %{ix86} x86_64 arm
 BuildRequires:    scons
 BuildRequires:    readline-devel
@@ -96,6 +95,7 @@ Development headers and libraries for v8.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 # clear spurious executable bits
 find . \( -name \*.cc -o -name \*.h -o -name \*.py \) -a -executable \
