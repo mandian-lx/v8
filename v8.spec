@@ -43,7 +43,6 @@ Group:      System/Libraries
 License:    BSD
 URL:        http://code.google.com/p/v8
 Source0:    http://commondatastorage.googleapis.com/chromium-browser-official/%{name}-%{somajor}.%{sominor}.%{sobuild}.tar.bz2
-Patch0:     add-debuginfo-with-sources.patch
 ExclusiveArch:    %{ix86} x86_64 arm
 BuildRequires:    scons
 BuildRequires:    readline-devel
@@ -95,7 +94,6 @@ Development headers and libraries for v8.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
 
 # clear spurious executable bits
 find . \( -name \*.cc -o -name \*.h -o -name \*.py \) -a -executable \
@@ -104,18 +102,14 @@ find . \( -name \*.cc -o -name \*.h -o -name \*.py \) -a -executable \
     chmod -x $FILE
   done
 
-
 %build
-
-
+%setup_compile_flags 
 make -j3 GYP_GENERATORS=make  V=1 werror=no \
          library=shared \
          snapshots=on \
          soname_version=%{sover} \
          visibility=default \
          %{archrel}
-
-
 
 %install
 mkdir -p %{buildroot}%{_includedir}
