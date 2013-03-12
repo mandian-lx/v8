@@ -1,53 +1,34 @@
-# Hi Googlers! If you're looking in here for patches, nifty.
-# You (and everyone else) are welcome to use any of my Chromium patches under the terms of the GPLv2 or later.
-# You (and everyone else) are welcome to use any of my V8-specific patches under the terms of the BSD license.
-# You (and everyone else) may NOT use my patches under any other terms.
-# I hate to be a party-pooper here, but I really don't want to help Google make a proprietary browser.
-# There are enough of those already.
-# All copyrightable work in these spec files and patches is Copyright 2010 Tom Callaway
-
-# For the 1.2 branch, we use 0s here
-# For 1.3+, we use the three digit versions
-
-
-%define libname %mklibname v8
-%define develname %mklibname v8 -d
-
-
-
-%ifarch x86_64
-%define archrel x64.release
-%endif
-
-%ifarch %ix86
-%define archrel ia32.release
-%endif
-
-%ifarch %arm
-%define archrel myarch=arm vfp3=on hardfp=off
-%endif
-
-
-%define soname_ver 3.17.5
+%define major 3
+%define libname %mklibname %{name}_ %major
+%define libpreparser %mklibname %{name}preparser %major
+%define develname %mklibname %name -d
 
 %define somajor 3
 %define sominor 17
 %define sobuild 5
 %define sover %{somajor}.%{sominor}.%{sobuild}
 
-Name:       v8
-Version:    %{somajor}.%{sominor}.%{sobuild}
-Release:    1
-Summary:    JavaScript Engine
-Group:      System/Libraries
-License:    BSD
-URL:        http://code.google.com/p/v8
-Source0:    http://commondatastorage.googleapis.com/chromium-browser-official/%{name}-%{somajor}.%{sominor}.%{sobuild}.tar.bz2
-ExclusiveArch:    %{ix86} x86_64 arm
-BuildRequires:    scons
-BuildRequires:    readline-devel
-BuildRequires:    icu-devel >= 49
-Obsoletes:        v8 < %{version}-%{release}
+%ifarch %{ix86}
+%define target ia32
+%endif
+%ifarch x86_64
+%define target x64
+%endif
+%ifarch %arm
+%define target arm
+%endif
+
+Name:		v8
+Version:	%{sover}
+Release:	1
+Summary:	JavaScript Engine
+Group:		System/Libraries
+License:	BSD
+URL:		http://code.google.com/p/v8
+Source0:	http://commondatastorage.googleapis.com/chromium-browser-official/%{name}-%{somajor}.%{sominor}.%{sobuild}.tar.bz2
+ExclusiveArch:	%{ix86} x86_64 %arm
+BuildRequires:	readline-devel
+BuildRequires:	icu-devel
 
 %description
 V8 is Google's open source JavaScript engine. V8 is written in C++ and is used 
@@ -58,81 +39,69 @@ as specified in ECMA-262, 3rd edition.
 %doc AUTHORS ChangeLog LICENSE
 %{_bindir}/d8
 
+#--------------------------------------------------------------------
 
 %package -n %libname
+Summary:    JavaScript Engine
 Group:      System/Libraries
-Summary:    libraries for v8
-Requires:   %{name} = %{version}-%{release}
+Conflicts:  %name < 3.12.8 
 
 %description -n %libname
-Library for V8 Google's open source JavaScript engine.
-
+V8 is Google's open source JavaScript engine. V8 is written in C++ and is used
+in Google Chrome, the open source browser from Google. V8 implements ECMAScript
+as specified in ECMA-262, 3rd edition.
 
 %files -n %libname
-%{_libdir}/*.so.*
+%{_libdir}/lib%{name}.so.%{major}*
 
 #--------------------------------------------------------------------
 
-%package -n %develname
+%package  -n %develname
 Group:      System/Libraries 
 Summary:    Development headers and libraries for v8
 Requires:   %{libname} = %{version}-%{release}
-Requires:   %{name} = %{version}-%{release}
-Provides:   %{name}-devel = %{version}-%{release}
-Obsoletes:  %{name}-devel < %{version}-%{release}
+Obsoletes:  %name-devel < %version-%release
+Provides:   %name-devel = %version-%release
 
 %description -n %develname
 Development headers and libraries for v8.
 
 %files -n %develname
 %{_includedir}/*.h
-%{_includedir}/v8/extensions/
+%{_includedir}/v8
 %{_libdir}/*.so
-%{python_sitelib}/j*.py*
 
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}
-
-# clear spurious executable bits
-find . \( -name \*.cc -o -name \*.h -o -name \*.py \) -a -executable \
-  |while read FILE ; do
-    echo $FILE
-    chmod -x $FILE
-  done
+%setup -qn %{name}-%{version}
 
 %build
-%setup_compile_flags 
-make -j3 GYP_GENERATORS=make  V=1 werror=no \
-         library=shared \
-         snapshots=on \
-         soname_version=%{sover} \
-         visibility=default \
-         %{archrel}
+%setup_compile_flags
+make %{target}.release %{_smp_mflags} \
+	console=readline \
+	library=shared \
+	snapshot=on \
+	soname_version=%{somajor}
 
 %install
 mkdir -p %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 install -p include/*.h %{buildroot}%{_includedir}
-install -p out/%{archrel}/lib.target//libv8.so.%{sover} %{buildroot}%{_libdir}
+
+mkdir -p %{buildroot}%{_includedir}/v8/x64
+install -p src/*.h %{buildroot}%{_includedir}/v8
+install -p src/x64/*.h %{buildroot}%{_includedir}/v8/x64
+
+install -p out/%{target}.release/lib.target/libv8.so* %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_bindir}
-install -p -m0755 out/%{archrel}/d8 %{buildroot}%{_bindir}
-
-chmod -x %{buildroot}%{_includedir}/v8*.h
-
-mkdir -p %{buildroot}%{_includedir}/v8/extensions/experimental/
-install -p src/extensions/*.h %{buildroot}%{_includedir}/v8/extensions/
-chmod -x %{buildroot}%{_includedir}/v8/extensions/*.h
+install -p -m0755 out/%{target}.release/d8 %{buildroot}%{_bindir}
 
 pushd %{buildroot}%{_libdir}
-ln -sf libv8.so.%{sover} libv8.so
-ln -sf libv8.so.%{sover} libv8.so.%{somajor}
-ln -sf libv8.so.%{sover} libv8.so.%{somajor}.%{sominor}
+mv libv8.so.%{somajor} libv8.so.%{version}
+ln -sf libv8.so.%{version} libv8.so.%{somajor}.%{sominor}
+ln -sf libv8.so.%{version} libv8.so.%{somajor}
+ln -sf libv8.so.%{version} libv8.so
 popd
 
-
-# install Python JS minifier scripts for nodejs
-install -d %{buildroot}%{python_sitelib}
-install -p -m0744 tools/jsmin.py %{buildroot}%{python_sitelib}/
-chmod -R -x %{buildroot}%{python_sitelib}/*.py*
+chmod -x %{buildroot}%{_includedir}/v8*.h
