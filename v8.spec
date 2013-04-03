@@ -78,6 +78,9 @@ Development headers and libraries for v8.
 
 %build
 %setup_compile_flags
+export CFLAGS="%{optflags} -fno-strict-aliasing"
+export CXXFLAGS="%{optflags} -fno-strict-aliasing"
+
 make %{target}.release %{_smp_mflags} \
 	console=readline \
 	library=shared \
