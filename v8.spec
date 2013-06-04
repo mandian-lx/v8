@@ -31,9 +31,10 @@ BuildRequires:	readline-devel
 BuildRequires:	icu-devel
 
 %description
-V8 is Google's open source JavaScript engine. V8 is written in C++ and is used 
-in Google Chrome, the open source browser from Google. V8 implements ECMAScript 
-as specified in ECMA-262, 3rd edition.
+V8 is Google's open source JavaScript engine.
+V8 is written in C++ and is used 
+in Google Chrome, the open source browser from Google.
+V8 implements ECMAScript as specified in ECMA-262, 3rd edition.
 
 %files
 %doc AUTHORS ChangeLog LICENSE
@@ -47,9 +48,9 @@ Group:      System/Libraries
 Conflicts:  %name < 3.12.8 
 
 %description -n %libname
-V8 is Google's open source JavaScript engine. V8 is written in C++ and is used
-in Google Chrome, the open source browser from Google. V8 implements ECMAScript
-as specified in ECMA-262, 3rd edition.
+V8 is Google's open source JavaScript engine.
+V8 is written in C++ and is used 
+in Google Chrome, the open source browser from Google.
 
 %files -n %libname
 %{_libdir}/lib%{name}.so.%{major}*
