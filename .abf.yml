@@ -3,5 +3,6 @@ removed_sources:
   v8-3.15.11.13.tar.bz2: 4d17cf56e5c0e4c06f1851870d39a9d094a79937
   v8-3.17.16.2.tar.bz2: 0c2fd7bad9ddc052a9c6ee0c02bd2835781f58f4
   v8-3.17.5.tar.bz2: d81f6f141735dbda63fb98e0722a23de30bb9f8a
-sources:
   v8-3.19.6.1.tar.bz2: ecd4f4e6c56ea3c1297b0d1b2c5a4540f7e29586
+sources:
+  v8-3.19.18.18.tar.bz2: e2953e1613095bcb27dd9ef85830a6451d7ed125

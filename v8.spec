@@ -5,7 +5,7 @@
 
 %define somajor 3
 %define sominor 19
-%define sobuild 6.1
+%define sobuild 18.18
 %define sover %{somajor}.%{sominor}.%{sobuild}
 
 %ifarch %{ix86}
@@ -82,6 +82,25 @@ Development headers and libraries for v8.
 export CFLAGS="%{optflags} -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-strict-aliasing"
 
+
+# configure sources
+build/gyp_v8 --depth=. -Dcomponent=shared_library \
+		-Dsoname_version=%{somajor} \
+		-Dv8_target_arch=%{target} \
+%ifarch armv7hl
+		-Dv8_use_arm_eabi_hardfloat=true \
+%endif	
+%ifarch armv7l
+		-Dv8_use_arm_eabi_hardfloat=false \
+%endif
+%ifarch %arm
+		-Darmv7=1 \
+		-Darm_neon=1 \
+%endif
+		-Dconsole=readline \
+		-Dwerror= \
+		--generator-output=out -f make
+
 make %{target}.release %{_smp_mflags} \
 	console=readline \
 	library=shared \
@@ -108,4 +127,4 @@ ln -sf libv8.so.%{version} libv8.so.%{somajor}
 ln -sf libv8.so.%{version} libv8.so
 popd
 
-chmod -x %{buildroot}%{_includedir}/v8*.h
+chmod -x %{buildroot}%{_includedir}/v8/*.h
