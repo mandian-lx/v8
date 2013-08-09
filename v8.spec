@@ -101,11 +101,15 @@ build/gyp_v8 --depth=. -Dcomponent=shared_library \
 		-Dwerror= \
 		--generator-output=out -f make
 
-make %{target}.release %{_smp_mflags} \
-	console=readline \
-	library=shared \
-	snapshot=on \
-	soname_version=%{somajor}
+%make -C out builddir=$(pwd)/out/%{target}.release V=1 BUILDTYPE=Release mksnapshot.%{target}
+%make -C out builddir=$(pwd)/out/%{target}.release V=1 BUILDTYPE=Release
+
+
+#%make  %{target}.release \
+#	console=readline \
+#	library=shared \
+#	snapshot=on \
+#	soname_version=%{somajor}
 
 %install
 mkdir -p %{buildroot}%{_includedir}
