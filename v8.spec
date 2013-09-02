@@ -4,8 +4,8 @@
 %define develname %mklibname %name -d
 
 %define somajor 3
-%define sominor 19
-%define sobuild 18.19
+%define sominor 20
+%define sobuild 17.2
 %define sover %{somajor}.%{sominor}.%{sobuild}
 
 %ifarch %{ix86}
