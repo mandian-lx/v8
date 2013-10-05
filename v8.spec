@@ -5,7 +5,7 @@
 
 %define somajor 3
 %define sominor 20
-%define sobuild 17.2
+%define sobuild 17.13
 %define sover %{somajor}.%{sominor}.%{sobuild}
 
 %ifarch %{ix86}
