@@ -20,7 +20,7 @@
 
 Name:		v8
 Version:	%{sover}
-Release:	1
+Release:	2
 Summary:	JavaScript Engine
 Group:		System/Libraries
 License:	BSD
@@ -76,6 +76,8 @@ Development headers and libraries for v8.
 
 %prep
 %setup -qn %{name}-%{version}
+# Make sure no bundled libraries are used.
+find third_party -type f \! -iname '*.gyp*' -delete
 
 %build
 %setup_compile_flags
@@ -98,18 +100,13 @@ build/gyp_v8 --depth=. -Dcomponent=shared_library \
 		-Darm_neon=1 \
 %endif
 		-Dconsole=readline \
+		-Duse_system_icu=1 \
+		-Dv8_enable_i18n_support=1 \
 		-Dwerror= \
 		--generator-output=out -f make
 
 %make -C out builddir=$(pwd)/out/%{target}.release V=1 BUILDTYPE=Release mksnapshot.%{target}
 %make -C out builddir=$(pwd)/out/%{target}.release V=1 BUILDTYPE=Release
-
-
-#%make  %{target}.release \
-#	console=readline \
-#	library=shared \
-#	snapshot=on \
-#	soname_version=%{somajor}
 
 %install
 mkdir -p %{buildroot}%{_includedir}
