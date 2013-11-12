@@ -20,7 +20,7 @@
 
 Name:		v8
 Version:	%{sover}
-Release:	2
+Release:	3
 Summary:	JavaScript Engine
 Group:		System/Libraries
 License:	BSD
@@ -81,8 +81,9 @@ find third_party -type f \! -iname '*.gyp*' -delete
 
 %build
 %setup_compile_flags
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-export CXXFLAGS="%{optflags} -fno-strict-aliasing"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
+export LINK="%{__cxx}"
 
 
 # configure sources
