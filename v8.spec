@@ -20,7 +20,7 @@
 
 Name:		v8
 Version:	%{sover}
-Release:	7
+Release:	8
 Summary:	JavaScript Engine
 Group:		System/Libraries
 License:	BSD
