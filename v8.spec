@@ -20,7 +20,7 @@
 
 Name:		v8
 Version:	%{sover}
-Release:	9
+Release:	10
 Summary:	JavaScript Engine
 Group:		System/Libraries
 License:	BSD
@@ -87,7 +87,7 @@ export LINK="%{__cxx}"
 
 
 # configure sources
-build/gyp_v8 --depth=. -Dcomponent=shared_library \
+%__python2 build/gyp_v8 --depth=. -Dcomponent=shared_library \
 		-Dsoname_version=%{somajor} \
 		-Dv8_target_arch=%{target} \
 %ifarch armv7hl
