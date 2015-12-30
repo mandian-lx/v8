@@ -1,3 +1,6 @@
+%define _disable_lto 1
+%define _disable_rebuild_configure 1
+
 %define major 3
 %define libname %mklibname %{name}_ %major
 %define libpreparser %mklibname %{name}preparser %major
