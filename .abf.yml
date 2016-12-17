@@ -1,4 +1,2 @@
-removed_sources:
-  v8-3.20.17.13.tar.bz2: b267781ce131ae02d66e69de94641ecbfc7dd0cb
 sources:
-  v8-3.20.17.15.tar.bz2: ba88c772ce779a8779bec4854f7d2738ff0d3d87
+  v8-5.6.331.tar.xz: 740cc1359c6102593876d9f58aaf8ef37f650024
