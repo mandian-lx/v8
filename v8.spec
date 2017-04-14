@@ -130,8 +130,8 @@ library=shared %{?_smp_mflags} \
 bundledbinutils=off \
 CC=%{_bindir}/clang \
 CXX=%{_bindir}/clang++ \
-CFLAGS="%{optflags}" \
-CXXFLAGS="%{optflags}" \
+CFLAGS="%{optflags} -Wno-gnu" \
+CXXFLAGS="%{optflags} -Wno-gnu" \
 LDFLAGS="%{optflags}" \
 V=1
 
